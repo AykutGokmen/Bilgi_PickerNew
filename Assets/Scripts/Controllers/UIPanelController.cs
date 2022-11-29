@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Enums;
+
 
 public class UIPanelController : MonoBehaviour
 {
@@ -47,14 +49,18 @@ public class UIPanelController : MonoBehaviour
     [Button("ClosePanel")]
     private void OnClosePanel(int layerPos)
     {
-        if (layers[layerPos].transform.childCount>0)
+        if (layers[layerPos].transform.childCount > 0)
+        {
+            Destroy(layers[layerPos].GetChild(0).gameObject);
+        }
         
-        Destroy(layers[layerPos].GetChild(0).gameObject);
+        
 
 
 
     }
 
+    //[Button ("OnCloseAllPanels")]
     private void OnCloseAllPanels()
     {
         for(int i=0; i<layers.Count; i++)

@@ -5,5 +5,7 @@ namespace Enums
         Idle,
         Moving,
         Final
+
+
     }
 }

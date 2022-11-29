@@ -16,8 +16,8 @@ public class CoreGameSignals : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
+        
     }
 
     #endregion
@@ -25,9 +25,11 @@ public class CoreGameSignals : MonoBehaviour
     public UnityAction<GameStates> onChangeGameState = delegate { };
     public UnityAction<int> onLevelInitialize = delegate { };
     public UnityAction onClearActiveLevel = delegate { };
-    public UnityAction onLevelSuccessful = delegate { };
     public UnityAction onLevelFailed = delegate { };
+    public UnityAction onLevelSuccessful = delegate { };
     public UnityAction onNextLevel = delegate { };
     public UnityAction onRestartLevel = delegate { };
+    public UnityAction onPlay = delegate { };
     public UnityAction onReset = delegate { };
+
 }
