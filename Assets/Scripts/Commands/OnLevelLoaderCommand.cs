@@ -1,7 +1,8 @@
 using Interfaces;
 using UnityEngine;
 
-
+namespace Commands.Level
+{
     public class OnLevelLoaderCommand : ICommand
     {
         private readonly Transform _levelHolder;
@@ -20,3 +21,4 @@ using UnityEngine;
             Object.Instantiate(Resources.Load<GameObject>($"Prefabs/LevelPrefabs/level{levelID}"), _levelHolder);
         }
     }
+}
