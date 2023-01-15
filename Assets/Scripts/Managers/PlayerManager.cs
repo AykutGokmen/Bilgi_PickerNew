@@ -1,11 +1,18 @@
+using System.Security.Cryptography;
 using Commands.Player;
+using Controllers;
 using Controllers.Player;
+using Controllers.UI;
 using Data.UnityObjects;
 using Data.ValueObjects;
+using DG.Tweening;
 using Keys;
 using Signals;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using Update = Unity.VisualScripting.Update;
 
 namespace Managers
 {
@@ -26,7 +33,6 @@ namespace Managers
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerMeshController meshController;
-
 
         #endregion
 
@@ -78,6 +84,8 @@ namespace Managers
             CoreGameSignals.Instance.onFinishAreaEntered += OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful += OnStageAreaSuccessful;
             CoreGameSignals.Instance.onReset += OnReset;
+            CoreGameSignals.Instance.onMinigameEntered += OnMinigameAreaEntered;
+            CoreGameSignals.Instance.updateDia += UpdateDia;
         }
 
         private void UnSubscribeEvents()
@@ -92,6 +100,8 @@ namespace Managers
             CoreGameSignals.Instance.onFinishAreaEntered -= OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful -= OnStageAreaSuccessful;
             CoreGameSignals.Instance.onReset -= OnReset;
+            CoreGameSignals.Instance.onMinigameEntered -= OnMinigameAreaEntered;
+            CoreGameSignals.Instance.updateDia -= UpdateDia;
         }
 
         private void OnDisable()
@@ -122,6 +132,7 @@ namespace Managers
         private void OnLevelSuccessful()
         {
             movementController.IsReadyToPlay(false);
+            
         }
 
         private void OnLevelFailed()
@@ -140,11 +151,23 @@ namespace Managers
             movementController.IsReadyToPlay(true);
             meshController.ScaleUpPlayer();
             meshController.ShowUpText();
+            meshController.PlayConfettiParticle();
+        }
+        private void OnMinigameAreaEntered()
+        {
+            meshController.PlayBoostParticle();
+            movementController.NitroNOS();
         }
 
         private void OnFinishAreaEntered()
         {
             movementController.IsReadyToPlay(false);
+        }
+
+        private void UpdateDia()
+        {
+            movementController.IsReadyToPlay(false);
+            physicsController.UpdateGem();
         }
 
         private void OnReset()

@@ -8,6 +8,8 @@ TagManager:
   - Collectable
   - PoolArea
   - MiniGame
+  - Gem
+  - Diamond
   layers:
   - Default
   - TransparentFX
